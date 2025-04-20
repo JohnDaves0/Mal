@@ -1,18 +1,17 @@
+import os
+import requests
+from flask import Flask, request, jsonify, send_file
+from flask_cors import CORS  # If you're using CORS
+from io import BytesIO
+
+app = Flask(__name__)
+CORS(app)  # Optional, if you’re handling CORS
+
+# Home route to verify the app works
 @app.route("/")
 def home():
     return "ElevenLabs TTS Flask is running!"
 
-
-import requests
-from flask import Flask, request, jsonify, send_file
-from io import BytesIO
-
-from flask_cors import CORS
-
-app = Flask(__name__)
-CORS(app)  # This allows all origins by default
-
-import os
 
 ELEVENLABS_API_KEY = os.environ.get("ELEVENLABS_API_KEY")
 VOICE_ID = os.environ.get("VOICE_ID")
@@ -50,8 +49,6 @@ def tts():
         return jsonify({"error": "TTS request failed", "details": response.text}), 500
 
     return send_file(BytesIO(response.content), mimetype="audio/mpeg")
-
-import os
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))  # Default to 5000 if not set
