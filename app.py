@@ -2,7 +2,10 @@ import requests
 from flask import Flask, request, jsonify, send_file
 from io import BytesIO
 
+from flask_cors import CORS
+
 app = Flask(__name__)
+CORS(app)  # This allows all origins by default
 
 import os
 
