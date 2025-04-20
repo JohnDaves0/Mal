@@ -45,3 +45,9 @@ def tts():
         return jsonify({"error": "TTS request failed", "details": response.text}), 500
 
     return send_file(BytesIO(response.content), mimetype="audio/mpeg")
+
+import os
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))  # Use PORT from Render, default to 5000 locally
+    app.run(host="0.0.0.0", port=port)
